@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Barzan Holdings — Contact CTA & Enquiry Routing Demo</title>
+<style>
+  :root{
+    --navy:#1f3a5f; --navy-d:#15263f; --gold:#8a6d2f; --gold-l:#c9a961;
+    --ink:#22303f; --grey:#6b7683; --line:#d5dce4; --bg:#f4f6f9; --card:#fff;
+    --ok:#1f6f4a; --okbg:#e3f2ea;
+  }
+  *{box-sizing:border-box; margin:0; padding:0; font-family:"Segoe UI",Helvetica,Arial,sans-serif;}
+  body{background:var(--bg); color:var(--ink);}
+
+  .demo-banner{background:var(--gold); color:#fff; text-align:center; font-size:12.5px; padding:7px 12px; letter-spacing:.04em;}
+  .demo-banner b{letter-spacing:.08em;}
+
+  /* ===== Simulated site header ===== */
+  .site-header{background:var(--navy); color:#fff; display:flex; align-items:center; gap:26px; padding:0 28px; height:60px; position:sticky; top:0; z-index:50;}
+  .logo{font-weight:800; letter-spacing:.14em; font-size:15px; color:#fff; cursor:pointer;}
+  .logo span{color:var(--gold-l);}
+  nav{display:flex; gap:20px; flex:1;}
+  nav a{color:#cfd9e6; text-decoration:none; font-size:12.5px; padding:6px 2px; border-bottom:2px solid transparent;}
+  nav a.active{color:#fff; border-bottom-color:var(--gold-l);}
+  nav a:hover{color:#fff;}
+  .utility{display:flex; align-items:center; gap:14px; font-size:11.5px; color:#cfd9e6;}
+  .cta{background:var(--gold-l); color:var(--navy-d); font-weight:700; font-size:13px; border:none; padding:9px 20px; border-radius:5px; cursor:pointer; box-shadow:0 2px 6px rgba(0,0,0,.25); transition:transform .12s, box-shadow .12s;}
+  .cta:hover{transform:translateY(-1px); box-shadow:0 4px 10px rgba(0,0,0,.3);}
+  .pulse{animation:pulse 2s infinite;}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(201,169,97,.55);}50%{box-shadow:0 0 0 9px rgba(201,169,97,0);}}
+
+  /* ===== Simulated product page ===== */
+  .page{max-width:1050px; margin:0 auto; padding:34px 24px 60px;}
+  .crumb{font-size:11.5px; color:var(--grey); margin-bottom:14px;}
+  .crumb b{color:var(--gold);}
+  .hero{background:linear-gradient(120deg,var(--navy) 0%,var(--navy-d) 70%); border-radius:10px; color:#fff; padding:38px 36px; display:flex; gap:30px; align-items:center;}
+  .hero .img{flex:0 0 250px; height:150px; background:repeating-linear-gradient(45deg,#2c4a73,#2c4a73 12px,#274266 12px,#274266 24px); border-radius:8px; display:flex; align-items:center; justify-content:center; color:#8fa5c2; font-size:11px; letter-spacing:.1em;}
+  .hero h1{font-size:24px; margin-bottom:8px;}
+  .hero p{font-size:13px; color:#c3d0e0; line-height:1.6;}
+  .hero .tag{display:inline-block; background:rgba(201,169,97,.18); border:1px solid var(--gold-l); color:var(--gold-l); font-size:10.5px; padding:2px 10px; border-radius:10px; margin-bottom:10px; letter-spacing:.08em;}
+  .body-cols{display:grid; grid-template-columns:2fr 1fr; gap:22px; margin-top:22px;}
+  .block{background:var(--card); border:1px solid var(--line); border-radius:8px; padding:20px;}
+  .block h3{color:var(--navy); font-size:14px; margin-bottom:8px;}
+  .skeleton{height:9px; background:#e4e9ef; border-radius:4px; margin:8px 0;}
+  .skeleton.w80{width:80%;} .skeleton.w60{width:60%;} .skeleton.w90{width:90%;}
+  .hint{margin-top:16px; background:var(--okbg); border-left:3px solid var(--ok); padding:10px 13px; font-size:12px; color:var(--ok); border-radius:0 5px 5px 0;}
+
+  /* ===== Modal ===== */
+  .overlay{position:fixed; inset:0; background:rgba(15,25,40,.55); display:none; align-items:flex-start; justify-content:center; padding:60px 16px; z-index:100; overflow-y:auto;}
+  .overlay.open{display:flex;}
+  .modal{background:#fff; border-radius:12px; width:640px; max-width:100%; box-shadow:0 20px 60px rgba(0,0,0,.35); overflow:hidden; animation:drop .22s ease-out;}
+  @keyframes drop{from{opacity:0; transform:translateY(-14px);}to{opacity:1; transform:none;}}
+  .modal-head{background:var(--navy); color:#fff; padding:18px 24px; display:flex; justify-content:space-between; align-items:center;}
+  .modal-head h2{font-size:16px; letter-spacing:.03em;}
+  .modal-head .step{font-size:11px; color:var(--gold-l);}
+  .close{background:none; border:none; color:#9fb2c9; font-size:20px; cursor:pointer; line-height:1;}
+  .modal-body{padding:22px 24px 26px;}
+
+  .cards{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  .icard{border:1.5px solid var(--line); border-radius:9px; padding:16px 14px; cursor:pointer; transition:border-color .12s, box-shadow .12s; background:#fff; text-align:left;}
+  .icard:hover{border-color:var(--gold-l); box-shadow:0 3px 10px rgba(31,58,95,.12);}
+  .icard.selected{border-color:var(--gold); background:#fdfaf3;}
+  .icard .ic{font-size:20px;}
+  .icard b{display:block; color:var(--navy); font-size:13.5px; margin:6px 0 3px;}
+  .icard span{font-size:11px; color:var(--grey); line-height:1.45; display:block;}
+  .icard .route{margin-top:8px; font-size:10px; color:var(--gold); letter-spacing:.05em; font-weight:700;}
+  .preselect{margin:0 0 14px; font-size:11.5px; background:var(--okbg); color:var(--ok); border-radius:6px; padding:9px 12px; display:none;}
+  .preselect.show{display:block;}
+
+  /* form */
+  .form{display:none;}
+  .form.show{display:block;}
+  .backlink{font-size:11.5px; color:var(--grey); cursor:pointer; margin-bottom:12px; display:inline-block;}
+  .backlink:hover{color:var(--navy);}
+  .fgrid{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  .field{display:flex; flex-direction:column; gap:4px;}
+  .field.full{grid-column:1/-1;}
+  .field label{font-size:11px; font-weight:700; color:var(--navy); letter-spacing:.03em;}
+  .field label em{color:var(--gold); font-style:normal; font-weight:400; font-size:10px;}
+  .field input,.field select,.field textarea{border:1px solid var(--line); border-radius:6px; padding:9px 10px; font-size:12.5px; color:var(--ink); background:#fff;}
+  .field textarea{min-height:70px; resize:vertical;}
+  .routing{margin-top:14px; border:1px dashed var(--gold-l); background:#fdfaf3; border-radius:7px; padding:10px 13px; font-size:11.5px; color:var(--gold); line-height:1.5;}
+  .routing b{color:var(--navy);}
+  .submit{margin-top:16px; width:100%; background:var(--navy); color:#fff; font-weight:700; font-size:13.5px; border:none; border-radius:6px; padding:12px; cursor:pointer;}
+  .submit:hover{background:var(--navy-d);}
+  .done{display:none; text-align:center; padding:26px 10px 12px;}
+  .done.show{display:block;}
+  .done .big{font-size:36px;}
+  .done h3{color:var(--navy); margin:10px 0 6px;}
+  .done p{font-size:12.5px; color:var(--grey); line-height:1.6;}
+  .sla{display:inline-block; margin-top:10px; background:var(--okbg); color:var(--ok); font-size:11px; padding:4px 12px; border-radius:12px; font-weight:700;}
+
+  .annot{max-width:1050px; margin:26px auto 0; padding:0 24px; font-size:11.5px; color:var(--grey); font-style:italic; line-height:1.7; text-align:center;}
+  @media(max-width:760px){ .body-cols,.cards,.fgrid{grid-template-columns:1fr;} .hero{flex-direction:column;} nav{display:none;} }
+</style>
+</head>
+<body>
+
+<div class="demo-banner"><b>INTERACTIVE DEMO</b> — Contact as a persistent CTA with enquiry routing. Try it: click the gold <b>CONTACT</b> button, top right.</div>
+
+<!-- Simulated header -->
+<header class="site-header">
+  <div class="logo">BARZAN<span>HOLDINGS</span></div>
+  <nav>
+    <a href="#">The Ecosystem</a>
+    <a href="#">Invest · Develop · Protect</a>
+    <a href="#" class="active">Total Capability</a>
+    <a href="#">The Group</a>
+    <a href="#">Partner With Us</a>
+  </nav>
+  <div class="utility">EN | العربية &nbsp;·&nbsp; 🔍</div>
+  <button class="cta pulse" onclick="openModal()">CONTACT</button>
+</header>
+
+<!-- Simulated product page = the context -->
+<div class="page">
+  <div class="crumb">Total Capability / Capabilities &amp; Solutions / <b>Counter-UAS</b></div>
+  <div class="hero">
+    <div class="img">PRODUCT VISUAL</div>
+    <div>
+      <div class="tag">PROPRIETARY CAPABILITY</div>
+      <h1>Counter-UAS Systems</h1>
+      <p>Layered detection, identification and defeat of unmanned aerial threats — developed and integrated in Qatar. Placeholder copy standing in for the real product page.</p>
+    </div>
+  </div>
+  <div class="body-cols">
+    <div class="block">
+      <h3>Key capabilities</h3>
+      <div class="skeleton w90"></div><div class="skeleton w80"></div><div class="skeleton"></div><div class="skeleton w60"></div><div class="skeleton w80"></div>
+    </div>
+    <div class="block">
+      <h3>Operational use cases</h3>
+      <div class="skeleton"></div><div class="skeleton w60"></div><div class="skeleton w80"></div>
+      <div class="hint">👁 The visitor is on the <b>Counter-UAS</b> page. Watch what the contact form already knows when they click CONTACT.</div>
+    </div>
+  </div>
+</div>
+
+<div class="annot">
+  Why this works: the button follows the visitor down every page, so the enquiry is one click away at the moment of highest intent —
+  and the intent selector routes each lead to the owning department (per the sitemap's Owner column) with the originating page attached.
+</div>
+
+<!-- ===== Modal ===== -->
+<div class="overlay" id="overlay" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <div class="modal-head">
+      <div>
+        <h2 id="mtitle">How can we help?</h2>
+        <div class="step" id="mstep">STEP 1 OF 2 — CHOOSE YOUR ENQUIRY TYPE</div>
+      </div>
+      <button class="close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+
+      <!-- STEP 1: intent cards -->
+      <div id="step1">
+        <div class="preselect show">✓ Context detected: you were viewing <b>Counter-UAS Systems</b> — we've pre-selected Partnership &amp; BD and attached the page to your enquiry.</div>
+        <div class="cards">
+          <button class="icard selected" onclick="pick('bd')">
+            <div class="ic">🤝</div><b>Partnership &amp; Business Development</b>
+            <span>JV proposals, technology transfer, defence trading, product enquiries.</span>
+            <div class="route">→ ROUTES TO: COMMERCIAL / BD</div>
+          </button>
+          <button class="icard" onclick="pick('supplier')">
+            <div class="ic">🏭</div><b>Supplier</b>
+            <span>Become a vendor, tender participation, supplier registration.</span>
+            <div class="route">→ ROUTES TO: DID / PROCUREMENT</div>
+          </button>
+          <button class="icard" onclick="pick('invest')">
+            <div class="ic">📈</div><b>Investment</b>
+            <span>Institutional and strategic investment enquiries.</span>
+            <div class="route">→ ROUTES TO: INVESTMENT TEAM</div>
+          </button>
+          <button class="icard" onclick="pick('media')">
+            <div class="ic">📰</div><b>Media</b>
+            <span>Press requests, interviews, media kit and assets.</span>
+            <div class="route">→ ROUTES TO: GROUP COMMS</div>
+          </button>
+        </div>
+      </div>
+
+      <!-- STEP 2: adaptive form -->
+      <div class="form" id="step2">
+        <span class="backlink" onclick="back()">← Change enquiry type</span>
+        <div class="fgrid" id="fields"></div>
+        <div class="routing" id="routebox"></div>
+        <button class="submit" onclick="submitForm()">Submit enquiry</button>
+      </div>
+
+      <!-- STEP 3: confirmation -->
+      <div class="done" id="step3">
+        <div class="big">✅</div>
+        <h3 id="donetitle">Enquiry sent to the Commercial / BD team</h3>
+        <p id="donetext">Reference #BH-2026-0847 · Your enquiry and the page you were viewing (Counter-UAS Systems) have been logged.</p>
+        <span class="sla">Response SLA: 2 business days</span>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+const CONFIGS = {
+  bd: {
+    title:"Partnership & Business Development", route:"Commercial / BD team",
+    routeNote:'This enquiry will be routed to the <b>Commercial / BD team</b> and tagged <b>“Product interest: Counter-UAS Systems”</b> (auto-attached from the page you were viewing).',
+    fields:[
+      ["Full name*","input"],["Organisation*","input"],
+      ["Country","input"],["Role / title","input"],
+      ["Nature of interest*","select",["Joint venture proposal","Technology transfer","Product / capability enquiry","Defence trading","Other"]],
+      ["Related capability","select",["Counter-UAS Systems (detected from page)","C2 / C4ISR","Autonomous Systems","Cyber & AI","Other"]],
+      ["Message*","textarea","full"]
+    ]
+  },
+  supplier: {
+    title:"Supplier Enquiry", route:"DID / Procurement",
+    routeNote:'This enquiry will be routed to <b>DID / Procurement</b>. In Phase 2 this step hands off to the <b>Supplier Portal</b> for full registration and e-tendering.',
+    fields:[
+      ["Company name*","input"],["Commercial registration no.*","input"],
+      ["Country of registration*","input"],["Website","input"],
+      ["Capability category*","select",["Manufacturing","Services & MRO","Technology / software","Logistics","Raw materials","Other"]],
+      ["Certifications held","input"],
+      ["Brief company profile*","textarea","full"]
+    ]
+  },
+  invest: {
+    title:"Investment Enquiry", route:"Investment team",
+    routeNote:'This enquiry will be routed to the <b>Investment team</b> and handled under the “How We Invest” mandate.',
+    fields:[
+      ["Full name*","input"],["Institution*","input"],
+      ["Institution type*","select",["Sovereign fund","Institutional investor","Defence OEM / strategic","Venture capital","Other"]],
+      ["Country","input"],
+      ["Area of interest*","select",["Co-investment","Strategic partnership","Portfolio company","General"]],
+      ["Message*","textarea","full"]
+    ]
+  },
+  media: {
+    title:"Media Enquiry", route:"Group Communications",
+    routeNote:'This enquiry will be routed to <b>Group Communications</b>. Media kit, leadership bios and official photos are also available in the <b>Newsroom → Media Resources</b>.',
+    fields:[
+      ["Full name*","input"],["Outlet / publication*","input"],
+      ["Deadline","input"],["Phone","input"],
+      ["Request type*","select",["Interview request","Statement / comment","Media assets","Event accreditation","Other"]],
+      ["Details*","textarea","full"]
+    ]
+  }
+};
+let current="bd";
+function openModal(){ document.getElementById("overlay").classList.add("open"); showStep(1); }
+function closeModal(){ document.getElementById("overlay").classList.remove("open"); }
+function showStep(n){
+  document.getElementById("step1").style.display = n===1 ? "block" : "none";
+  document.getElementById("step2").classList.toggle("show", n===2);
+  document.getElementById("step3").classList.toggle("show", n===3);
+  document.getElementById("mstep").textContent = n===1 ? "STEP 1 OF 2 — CHOOSE YOUR ENQUIRY TYPE" : n===2 ? "STEP 2 OF 2 — TELL US ABOUT YOUR ENQUIRY" : "DONE";
+  document.getElementById("mtitle").textContent = n===1 ? "How can we help?" : n===2 ? CONFIGS[current].title : "Thank you";
+}
+function pick(key){
+  current=key;
+  const c=CONFIGS[key];
+  const holder=document.getElementById("fields");
+  holder.innerHTML="";
+  c.fields.forEach(f=>{
+    const [label,type,extra]=f;
+    const div=document.createElement("div");
+    div.className="field"+(extra==="full"||type==="textarea"?" full":"");
+    let ctrl;
+    if(type==="select"){
+      ctrl="<select>"+extra.map(o=>`<option>${o}</option>`).join("")+"</select>";
+    } else if(type==="textarea"){ ctrl="<textarea placeholder='…'></textarea>"; }
+    else { ctrl="<input placeholder='…'>"; }
+    div.innerHTML=`<label>${label.replace("*"," <em>required</em>")}</label>${ctrl}`;
+    holder.appendChild(div);
+  });
+  document.getElementById("routebox").innerHTML="📬 "+c.routeNote;
+  showStep(2);
+}
+function back(){ showStep(1); }
+function submitForm(){
+  document.getElementById("donetitle").textContent="Enquiry sent to the "+CONFIGS[current].route;
+  showStep(3);
+}
+</script>
+</body>
+</html>
