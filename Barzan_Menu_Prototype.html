@@ -263,120 +263,6 @@
   }
   .footnote b{color:var(--muted);}
 
-  /* ── contact / enquiry routing dialog ───────── */
-  .cscrim{
-    position:fixed; inset:0; background:rgba(4,8,14,.82); backdrop-filter:blur(6px);
-    z-index:300; display:none; align-items:flex-start; justify-content:center;
-    padding:clamp(24px,6vh,80px) 18px; overflow-y:auto;
-  }
-  .cscrim.on{display:flex; animation:fade .3s var(--ease);}
-  @keyframes fade{from{opacity:0}to{opacity:1}}
-  .dlg{
-    width:660px; max-width:100%; background:linear-gradient(180deg,var(--panel),#081120);
-    border:1px solid var(--hair); border-radius:3px; overflow:hidden;
-    box-shadow:0 50px 100px -30px rgba(0,0,0,.85); animation:rise .45s var(--ease) both;
-  }
-  .dlg-head{
-    padding:22px 28px 20px; border-bottom:1px solid var(--hair-soft);
-    display:flex; justify-content:space-between; align-items:flex-start; gap:16px;
-    background:linear-gradient(180deg,rgba(201,169,97,.06),transparent);
-  }
-  .dlg-head .step{font-size:9.5px; letter-spacing:.28em; text-transform:uppercase; color:var(--gold); font-weight:600; margin-bottom:9px;}
-  .dlg-head h2{font-family:var(--serif); font-weight:300; font-size:26px; line-height:1.1; color:var(--text);}
-  body[dir="rtl"] .dlg-head h2{font-family:var(--arabic); font-weight:500; font-size:22px;}
-  .x{
-    background:none; border:1px solid var(--hair-soft); color:var(--muted); width:30px; height:30px;
-    border-radius:2px; cursor:pointer; font-size:14px; line-height:1; flex-shrink:0;
-    transition:all .25s var(--ease); font-family:inherit;
-  }
-  .x:hover{border-color:var(--hair); color:var(--gold); background:rgba(201,169,97,.08);}
-  .dlg-body{padding:24px 28px 30px;}
-
-  .ctx{
-    display:flex; gap:9px; align-items:flex-start; margin-bottom:20px; padding:11px 14px;
-    border:1px solid rgba(201,169,97,.22); border-radius:2px; background:rgba(201,169,97,.05);
-    font-size:11.5px; line-height:1.6; color:var(--muted);
-  }
-  .ctx b{color:var(--gold-bright); font-weight:600;}
-  .ctx .dot{width:5px; height:5px; border-radius:50%; background:var(--gold); margin-top:6px; flex-shrink:0;}
-
-  .intents{display:grid; grid-template-columns:1fr 1fr; gap:11px;}
-  .intent{
-    text-align:start; border:1px solid var(--hair-soft); border-radius:3px; padding:16px 15px 14px;
-    background:linear-gradient(160deg,rgba(255,255,255,.02),transparent 65%);
-    cursor:pointer; font-family:inherit; position:relative; overflow:hidden;
-    transition:border-color .3s var(--ease), transform .3s var(--ease);
-  }
-  .intent::after{
-    content:""; position:absolute; inset-inline-start:0; top:0; width:2px; height:0;
-    background:var(--gold); transition:height .4s var(--ease);
-  }
-  .intent:hover{border-color:var(--hair); transform:translateY(-2px);}
-  .intent:hover::after{height:100%;}
-  .intent .n{font-family:var(--serif); font-style:italic; font-size:11px; color:var(--gold); display:block; margin-bottom:7px;}
-  .intent b{display:block; color:var(--text); font-size:13.5px; font-weight:600; margin-bottom:5px; line-height:1.25;}
-  .intent span{display:block; color:var(--muted-2); font-size:11px; line-height:1.55;}
-  .intent .to{
-    display:block; margin-top:10px; font-size:9.5px; letter-spacing:.16em; text-transform:uppercase;
-    color:var(--muted-2); transition:color .3s;
-  }
-  .intent:hover .to{color:var(--gold);}
-  body[dir="rtl"] .intent .to{letter-spacing:0; font-size:11px;}
-
-  .back{
-    background:none; border:none; color:var(--muted-2); font-family:inherit; font-size:11px;
-    letter-spacing:.12em; text-transform:uppercase; cursor:pointer; padding:0 0 16px;
-    transition:color .25s; font-weight:600;
-  }
-  .back:hover{color:var(--gold);}
-  .fields{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
-  .fld{display:flex; flex-direction:column; gap:6px;}
-  .fld.full{grid-column:1/-1;}
-  .fld label{font-size:9.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); font-weight:600;}
-  .fld label i{color:var(--gold); font-style:normal;}
-  .fld input,.fld select,.fld textarea{
-    background:rgba(255,255,255,.035); border:1px solid var(--hair-soft); border-radius:2px;
-    color:var(--text); font-family:inherit; font-size:13px; padding:10px 12px; outline:none;
-    transition:border-color .25s, background .25s;
-  }
-  .fld textarea{min-height:78px; resize:vertical;}
-  .fld input:focus,.fld select:focus,.fld textarea:focus{border-color:var(--gold); background:rgba(201,169,97,.05);}
-  .fld select option{background:#0b1524; color:var(--text);}
-  body[dir="rtl"] .fld label{letter-spacing:0; font-size:11px;}
-
-  .route{
-    margin-top:18px; padding:13px 15px; border:1px dashed rgba(201,169,97,.35); border-radius:2px;
-    background:rgba(201,169,97,.04); font-size:11.5px; line-height:1.65; color:var(--muted);
-  }
-  .route b{color:var(--gold-bright); font-weight:600;}
-  .send{
-    margin-top:18px; width:100%; background:var(--gold); color:var(--ink); border:none; border-radius:2px;
-    font-family:inherit; font-size:11.5px; font-weight:700; letter-spacing:.18em; text-transform:uppercase;
-    padding:15px; cursor:pointer; transition:background .3s var(--ease), transform .25s var(--ease);
-  }
-  .send:hover{background:var(--gold-bright); transform:translateY(-1px);}
-  body[dir="rtl"] .send{letter-spacing:0; font-size:14px;}
-
-  .sent{text-align:center; padding:22px 6px 8px;}
-  .sent .tick{
-    width:52px; height:52px; margin:0 auto 18px; border:1px solid var(--gold); border-radius:50%;
-    display:grid; place-items:center; color:var(--gold); font-size:22px;
-    animation:pop .5s var(--ease) both;
-  }
-  @keyframes pop{from{opacity:0; transform:scale(.7)}to{opacity:1; transform:none}}
-  .sent h3{font-family:var(--serif); font-weight:300; font-size:24px; margin-bottom:10px; color:var(--text);}
-  body[dir="rtl"] .sent h3{font-family:var(--arabic); font-weight:500; font-size:20px;}
-  .sent p{font-size:12.5px; color:var(--muted); line-height:1.75; max-width:44ch; margin:0 auto;}
-  .sent .ref{color:var(--gold); font-weight:600;}
-  .sla{
-    display:inline-block; margin-top:18px; border:1px solid var(--hair-soft); border-radius:2px;
-    padding:8px 16px; font-size:9.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--muted-2);
-  }
-  .sla b{color:var(--gold);}
-  body[dir="rtl"] .sla{letter-spacing:0; font-size:11px;}
-
-  @media(max-width:620px){ .intents,.fields{grid-template-columns:1fr;} }
-
   @media(max-width:1080px){
     .mega-inner{grid-template-columns:1fr; gap:26px;}
     .mega-left{border:none; padding:0;}
@@ -415,7 +301,7 @@
     <button class="navitem" data-key="partner"><span class="idx">05</span><span data-i18n="partner">Partner With Us</span></button>
   </nav>
 
-  <button class="cta" onclick="openContact()">
+  <button class="cta" onclick="alert('Opens the enquiry-routing dialog — see the Contact CTA prototype.')">
     <span data-i18n="contact">Contact</span>
   </button>
 </header>
@@ -448,39 +334,6 @@
     </div>
   </div>
 </main>
-
-<!-- contact / enquiry routing -->
-<div class="cscrim" id="cscrim" onclick="if(event.target===this)closeContact()">
-  <div class="dlg" role="dialog" aria-modal="true">
-    <div class="dlg-head">
-      <div>
-        <div class="step" id="c-step"></div>
-        <h2 class="serif" id="c-title"></h2>
-      </div>
-      <button class="x" onclick="closeContact()" aria-label="Close">✕</button>
-    </div>
-    <div class="dlg-body">
-      <div id="c-1">
-        <div class="ctx" id="c-ctx"><span class="dot"></span><span id="c-ctx-t"></span></div>
-        <div class="intents" id="c-intents"></div>
-      </div>
-      <div id="c-2" style="display:none">
-        <button class="back" onclick="contactStep(1)" id="c-back"></button>
-        <div class="fields" id="c-fields"></div>
-        <div class="route" id="c-route"></div>
-        <button class="send" onclick="contactSend()" id="c-send"></button>
-      </div>
-      <div id="c-3" style="display:none">
-        <div class="sent">
-          <div class="tick">✓</div>
-          <h3 class="serif" id="c-done"></h3>
-          <p id="c-donetxt"></p>
-          <div class="sla" id="c-sla"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
 <div class="footnote">
   Barzan Holdings website revamp · primary navigation prototype · <b>August 2026</b><br>
@@ -639,111 +492,7 @@ function toggleLang(){
     ? "نموذج تفاعلي — مرّر فوق عناصر القائمة · التخطيط من اليمين إلى اليسار"
     : "Interactive prototype — hover or click a menu item · try the AR toggle for right-to-left";
   if(activeKey){ const k=activeKey; activeKey=null; openPanel(k); }
-  if(cscrim.classList.contains("on")) contactStep(cStep);
 }
-
-/* ── contact / enquiry routing ─────────────────── */
-const INTENTS = {
-  bd:{ n:"I", label:"Partnership & Business Development", labelAR:"الشراكات وتطوير الأعمال",
-    blurb:"Joint ventures, technology transfer, defence trading and capability enquiries.",
-    blurbAR:"المشاريع المشتركة ونقل التقنية والتجارة الدفاعية.",
-    to:"Commercial / BD", toAR:"الإدارة التجارية",
-    note:'Routed to the <b>Commercial / BD team</b> and tagged <b>“Capability interest: Counter-UAS”</b> — attached automatically from the page in view.',
-    fields:[["Full name","input",1],["Organisation","input",1],["Country","input",0],["Role / title","input",0],
-      ["Nature of interest","select",1,["Joint venture proposal","Technology transfer","Capability enquiry","Defence trading","Other"]],
-      ["Related capability","select",0,["Counter-UAS (detected)","C2 / C4ISR","Autonomous Systems","Cyber & AI","Other"]],
-      ["Message","textarea",1]] },
-  sup:{ n:"II", label:"Supplier", labelAR:"مورّد",
-    blurb:"Vendor registration, tender participation and supply-chain entry.",
-    blurbAR:"تسجيل المورّدين والمشاركة في المناقصات.",
-    to:"DID / Procurement", toAR:"تطوير الصناعة الدفاعية",
-    note:'Routed to <b>DID / Procurement</b>. In Phase 2 this step hands off to the <b>Supplier Portal</b> for full registration and e-tendering.',
-    fields:[["Company name","input",1],["Commercial registration no.","input",1],["Country of registration","input",1],["Website","input",0],
-      ["Capability category","select",1,["Manufacturing","Services & MRO","Technology / software","Logistics","Raw materials","Other"]],
-      ["Certifications held","input",0],["Company profile","textarea",1]] },
-  inv:{ n:"III", label:"Investment", labelAR:"الاستثمار",
-    blurb:"Co-investment, strategic positions and portfolio enquiries.",
-    blurbAR:"الاستثمار المشترك والمواقع الاستراتيجية.",
-    to:"Investment team", toAR:"فريق الاستثمار",
-    note:'Routed to the <b>Investment team</b> and handled under the “How We Invest” mandate.',
-    fields:[["Full name","input",1],["Institution","input",1],
-      ["Institution type","select",1,["Sovereign fund","Institutional investor","Defence OEM / strategic","Venture capital","Other"]],
-      ["Country","input",0],
-      ["Area of interest","select",1,["Co-investment","Strategic partnership","Portfolio company","General"]],
-      ["Message","textarea",1]] },
-  med:{ n:"IV", label:"Media", labelAR:"إعلام",
-    blurb:"Press requests, interviews, media kit and official assets.",
-    blurbAR:"الطلبات الصحفية والمقابلات والمواد الإعلامية.",
-    to:"Group Communications", toAR:"الاتصال المؤسسي",
-    note:'Routed to <b>Group Communications</b>. Media kit, leadership bios and official photography are also in the <b>Newsroom → Media Resources</b>.',
-    fields:[["Full name","input",1],["Outlet / publication","input",1],["Deadline","input",0],["Phone","input",0],
-      ["Request type","select",1,["Interview request","Statement / comment","Media assets","Event accreditation","Other"]],
-      ["Details","textarea",1]] }
-};
-const CT = {
-  en:{ s1:"Step 1 of 2 — Choose your enquiry", s2:"Step 2 of 2 — Your details", s3:"Enquiry received",
-    t1:"How can we help?", t3:"Thank you", back:"← Change enquiry type", send:"Submit enquiry",
-    ctx:'Context detected — you were viewing <b>Counter-UAS Systems</b>. Your enquiry will carry that reference.',
-    routes:"Routes to", sla:"Response SLA <b>2 business days</b>",
-    done:k=>`Enquiry sent to ${INTENTS[k].to}`,
-    donetxt:'Reference <span class="ref">#BH-2026-0847</span> · your enquiry and the page you were viewing have been logged against the owning department.' },
-  ar:{ s1:"الخطوة ١ من ٢ — اختر نوع الطلب", s2:"الخطوة ٢ من ٢ — بياناتك", s3:"تم استلام الطلب",
-    t1:"كيف يمكننا المساعدة؟", t3:"شكراً لك", back:"→ تغيير نوع الطلب", send:"إرسال الطلب",
-    ctx:'تم رصد السياق — كنت تتصفح <b>أنظمة مكافحة الطائرات المسيّرة</b>، وسيُرفق ذلك بطلبك.',
-    routes:"يُوجَّه إلى", sla:"مدة الرد <b>يوما عمل</b>",
-    done:k=>`تم إرسال طلبك إلى ${INTENTS[k].toAR}`,
-    donetxt:'الرقم المرجعي <span class="ref">#BH-2026-0847</span> · تم تسجيل طلبك والصفحة التي كنت تتصفحها لدى الإدارة المختصة.' }
-};
-let cKey="bd", cStep=1;
-const cscrim=document.getElementById("cscrim");
-
-function openContact(){ closeAll(); cscrim.classList.add("on"); contactStep(1); }
-function closeContact(){ cscrim.classList.remove("on"); }
-
-function contactStep(n){
-  cStep = n;
-  const L = CT[isAR?"ar":"en"];
-  document.getElementById("c-1").style.display = n===1?"block":"none";
-  document.getElementById("c-2").style.display = n===2?"block":"none";
-  document.getElementById("c-3").style.display = n===3?"block":"none";
-  document.getElementById("c-step").textContent = n===1?L.s1:n===2?L.s2:L.s3;
-  document.getElementById("c-title").textContent =
-    n===1?L.t1 : n===2?(isAR?INTENTS[cKey].labelAR:INTENTS[cKey].label) : L.t3;
-  if(n===1) renderIntents();
-  if(n===2) renderFields();
-  if(n===3){
-    document.getElementById("c-done").textContent = L.done(cKey);
-    document.getElementById("c-donetxt").innerHTML = L.donetxt;
-    document.getElementById("c-sla").innerHTML = L.sla;
-  }
-}
-function renderIntents(){
-  const L = CT[isAR?"ar":"en"];
-  document.getElementById("c-ctx-t").innerHTML = L.ctx;
-  document.getElementById("c-intents").innerHTML = Object.entries(INTENTS).map(([k,v])=>`
-    <button class="intent" onclick="pickIntent('${k}')">
-      <span class="n">${v.n}</span>
-      <b>${isAR?v.labelAR:v.label}</b>
-      <span>${isAR?v.blurbAR:v.blurb}</span>
-      <span class="to">${L.routes}: ${isAR?v.toAR:v.to}</span>
-    </button>`).join("");
-}
-function pickIntent(k){ cKey=k; contactStep(2); }
-function renderFields(){
-  const L = CT[isAR?"ar":"en"], v = INTENTS[cKey];
-  document.getElementById("c-back").textContent = L.back;
-  document.getElementById("c-send").textContent = L.send;
-  document.getElementById("c-route").innerHTML = "✉ "+v.note;
-  document.getElementById("c-fields").innerHTML = v.fields.map(f=>{
-    const [label,type,req,opts] = f;
-    const ctrl = type==="select" ? `<select>${opts.map(o=>`<option>${o}</option>`).join("")}</select>`
-      : type==="textarea" ? `<textarea></textarea>` : `<input>`;
-    return `<div class="fld${type==="textarea"?" full":""}">
-      <label>${label}${req?' <i>*</i>':''}</label>${ctrl}</div>`;
-  }).join("");
-}
-function contactSend(){ contactStep(3); }
-document.addEventListener("keydown",e=>{ if(e.key==="Escape") closeContact(); });
 
 let lastY=0;
 window.addEventListener("scroll",()=>{
